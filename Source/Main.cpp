@@ -4,6 +4,9 @@
 #include <ciofxx/FileScanner.hpp>
 #include <ciofxx/OutputWriter.hpp>
 
+// CLI11
+#include <CLI/CLI.hpp>
+
 // Std
 #include <iostream>
 
@@ -16,6 +19,9 @@ auto main(int argc, char** argv) -> int {
         ciofxx::WriteOutput(files, options);
 
         std::cout << "Processed " << files.size() << " files\n";
+    } catch (const CLI::CallForHelp& e) {
+        /* e is unused. handling is in ciofxx::ParseCli */
+        (void)e;
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;  // NOLINT
         return 1;

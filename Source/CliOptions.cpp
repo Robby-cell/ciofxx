@@ -5,6 +5,7 @@
 
 // CLI11
 #include <CLI/CLI.hpp>
+#include <iostream>
 
 namespace ciofxx {
 
@@ -33,7 +34,12 @@ auto ParseCli(int argc, char** argv) -> CliOptions {
 
     app.add_option("--exclude", opts.exclude, "Exclude directories");
 
-    app.parse(argc, argv);
+    try {
+        app.parse(argc, argv);
+    } catch (const CLI::CallForHelp& e) {
+        std::cerr << app.help() << std::endl;  // NOLINT
+        throw;
+    }
 
     if (!format_str.empty()) {
         opts.format = ParseOutputFormat(format_str);
