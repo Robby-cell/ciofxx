@@ -20,16 +20,16 @@
             "environment": {}
         },
         {
-            "name": "ninja-multi",
+            "name": "ninja-multi-debug",
             "inherits": "debug",
-            "displayName": "Ninja Multi-Config",
+            "displayName": "Ninja Multi-Config Debug",
             "description": "Default build using Ninja Multi-Config generator",
             "generator": "Ninja Multi-Config"
         },
         {
-            "name": "windows-only",
+            "name": "windows-only-debug",
             "inherits": "debug",
-            "displayName": "Windows-only configuration",
+            "displayName": "Windows-only configuration Debug",
             "description": "This build is only available on Windows",
             "condition": {
                 "type": "equals",
@@ -50,16 +50,16 @@
             "environment": {}
         },
         {
-            "name": "ninja-multi",
+            "name": "ninja-multi-release",
             "inherits": "release",
-            "displayName": "Ninja Multi-Config",
+            "displayName": "Ninja Multi-Config Release",
             "description": "Default build using Ninja Multi-Config generator",
             "generator": "Ninja Multi-Config"
         },
         {
-            "name": "windows-only",
+            "name": "windows-only-release",
             "inherits": "release",
-            "displayName": "Windows-only configuration",
+            "displayName": "Windows-only configuration Release",
             "description": "This build is only available on Windows",
             "condition": {
                 "type": "equals",
@@ -72,6 +72,10 @@
         {
             "name": "debug",
             "configurePreset": "debug"
+        },
+        {
+            "name": "release",
+            "configurePreset": "release"
         }
     ],
     "testPresets": [
@@ -85,12 +89,30 @@
                 "noTestsAction": "error",
                 "stopOnFailure": true
             }
+        },
+        {
+            "name": "release",
+            "configurePreset": "release",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
         }
     ],
     "packagePresets": [
         {
             "name": "debug",
             "configurePreset": "debug",
+            "generators": [
+                "TGZ"
+            ]
+        },
+        {
+            "name": "release",
+            "configurePreset": "release",
             "generators": [
                 "TGZ"
             ]
@@ -115,6 +137,27 @@
                 {
                     "type": "package",
                     "name": "debug"
+                }
+            ]
+        },
+        {
+            "name": "release",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "release"
+                },
+                {
+                    "type": "build",
+                    "name": "release"
+                },
+                {
+                    "type": "test",
+                    "name": "release"
+                },
+                {
+                    "type": "package",
+                    "name": "release"
                 }
             ]
         }
