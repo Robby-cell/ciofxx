@@ -1,6 +1,6 @@
 # ciof
 
-**ciof** (Code Input Output Formatter) is a command-line tool that collects source files from a project and exports them in a format suitable for large language models.
+**ciof** (Contents In One File) is a command-line tool that collects source files from a project and exports them in a format suitable for large language models.
 
 It scans directories, filters files, and produces a structured output file containing file metadata and contents.
 
@@ -31,8 +31,8 @@ Requirements:
 Build:
 
 ```
-cmake -B build
-cmake --build build
+cmake . --preset=release
+cmake --build . --preset=release
 ```
 
 ## Usage
