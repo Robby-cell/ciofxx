@@ -9,6 +9,7 @@
 #include <filesystem>
 #include <fstream>
 #include <future>
+#include <type_traits>
 
 namespace ciofxx {
 
@@ -20,7 +21,9 @@ static auto ScanPath(const std::filesystem::path& path, const CliOptions& option
              path, std::filesystem::directory_options::skip_permission_denied)) {
         const auto name = entry.path().filename().string();
 
-        if (std::ranges::find(options.exclude, name) != options.exclude.end()) {
+        if (std::ranges::any_of(options.exclude, [&name](const auto& exclude) -> bool {
+                return name.find(exclude) != std::remove_cvref_t<decltype(name)>::npos;
+            })) {
             continue;
         }
 
